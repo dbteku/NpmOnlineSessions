@@ -33,7 +33,7 @@ class OnlineSessions {
     }
 
     getSession(sessionId, callback) {
-        HttpHelper.httpRequest(HOST, "/getSession?apiKey=" + apiKey + ",sessionId=" + sessionId, "GET").then(response => {
+        HttpHelper.httpRequest(HOST, "/getSession?apiKey=" + apiKey + ",sessionId=" + sessionId, "DELETE").then(response => {
             return new Promise(function (resolve, reject) {
                 if (callback == undefined) {
                     resolve(response);

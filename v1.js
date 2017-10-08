@@ -2,26 +2,14 @@
 let HttpHelper = require(__dirname + '/lib/HttpHelper');
 const ApiResponse = require(__dirname + '/lib/ApiResponse')
 const HOST = "onlinesessions.io"
-var apiKey;
-
-var test = {
-    test:true
-}
-
-// HttpHelper.httpRequest(HOST, '/v1/createSession?apiKey=test,accountId=test@test.com,time=30s', "POST", undefined, '{"test":true}').then(response => {
-//     console.log(response);
-// });
-
-// HttpHelper.httpRequest(HOST, "/v1/createSession?apiKey=test,sessionId=test@test.com", "GET").then(response => {
-//     console.log(response);
-// });
 
 class OnlineSessions {
-    constructor(api) {
-        this.api = api;
+    constructor(apiKey) {
+        this.apiKey = apiKey;
     }
 
     createSession(accountId, sessionData, time, callback) {
+        const apiKey = this.apiKey;
         return new Promise(function (resolve, reject) {
             HttpHelper.httpRequest(HOST, "/v1/createSession?apiKey=" + apiKey + ",accountId=" + accountId + ",time=" + time, "POST", undefined, sessionData).then(response => {
                 if (callback == undefined) {
@@ -34,6 +22,7 @@ class OnlineSessions {
     }
 
     hasSession(sessionId, callback) {
+        const apiKey = this.apiKey;
         return new Promise(function (resolve, reject) {
             HttpHelper.httpRequest(HOST, "/v1/hasSession?apiKey=" + apiKey + ",sessionId=" + sessionId, "GET").then(response => {
                 if (callback == undefined) {
@@ -46,6 +35,7 @@ class OnlineSessions {
     }
 
     getSession(sessionId, callback) {
+        const apiKey = this.apiKey;
         return new Promise(function (resolve, reject) {
             HttpHelper.httpRequest(HOST, "/v1/getSession?apiKey=" + apiKey + ",sessionId=" + sessionId, "GET").then(response => {
                 if (callback == undefined) {
@@ -58,6 +48,7 @@ class OnlineSessions {
     }
 
     renewSession(sessionId, callback) {
+        const apiKey = this.apiKey;
         return new Promise(function (resolve, reject) {
             HttpHelper.httpRequest(HOST, "/v1/renewSession?apiKey=" + apiKey + ",sessionId=" + sessionId, "GET").then(response => {
                 if (callback == undefined) {
@@ -70,6 +61,7 @@ class OnlineSessions {
     }
 
     removeSession(sessionId, callback) {
+        const apiKey = this.apiKey;
         return new Promise(function (resolve, reject) {
             HttpHelper.httpRequest(HOST, "/v1/removeSession?apiKey=" + apiKey + ",sessionId=" + sessionId, "DELETE").then(response => {
                 if (callback == undefined) {
@@ -84,5 +76,15 @@ class OnlineSessions {
 }
 
 
+var initializer = function(apiKey){
+    return new OnlineSessions(apiKey);
+}
 
-module.exports = OnlineSessions;
+var os = new OnlineSessions('test-c1660e72-9a38-11e7-abc4-cec278b6b50a');
+
+os.hasSession('test-dbteku@hotmail.com').then(response =>{
+    console.log(response);
+});
+
+module.exports = initializer;
+// module.exports = OnlineSessions;

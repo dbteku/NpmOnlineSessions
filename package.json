@@ -1,6 +1,6 @@
 {
   "name": "online-sessions",
-  "version": "1.0.3",
+  "version": "1.0.7",
   "description": "Online Sessions API helper.",
   "main": "v1.js",
   "scripts": {

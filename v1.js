@@ -80,11 +80,4 @@ var initializer = function(apiKey){
     return new OnlineSessions(apiKey);
 }
 
-var os = new OnlineSessions('test-c1660e72-9a38-11e7-abc4-cec278b6b50a');
-
-os.hasSession('test-dbteku@hotmail.com').then(response =>{
-    console.log(response);
-});
-
 module.exports = initializer;
-// module.exports = OnlineSessions;
